@@ -9,22 +9,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      -  name: Set output value 1
-         id: first
-         shell: bash
-         run: |
-           value1='This is the first value'
-           echo "::set-output name=first_value::$value1"
+      - name: Mask output value
+        id: first
+        shell: bash
+        run: |
+          value1='This is the first secret value'
 
-      -  name: Set output value 2
-         id: secont
-         shell: pwsh
-         run: |
-           $value2 = 'This is the first value'
-           echo "::set-output name=secont_value::$value1"
+          echo "::add-mast::$value1"
+          echo "::set-output name=first_value::$value1"
 
-      -  name: Check output values
-         shell: bash
-         run: |
-           echo "first value: ${{ stems.first.outputs.first_value}}
-           echo "second value: ${{ stems.second.outputs.second_value}}
+      - name: Check output value
+        shell: bash
+        run: |
+  
+          echo "first value: ${{ steps.first.outputs.first_value }}"
