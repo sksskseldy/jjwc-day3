@@ -2,9 +2,6 @@ name : 'My First Githob Actions'
 
 on: push
 
-env:
-  PRESET_VALUE: "This is the value preset"
-
 jobs:
 
   first_job:
@@ -12,21 +9,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      -  name: Set enviroment valriable 1
+      -  name: Set output value 1
+         id: first
          shell: bash
          run: |
-           echo "VAL1='this is the value from the step 1'" >> $GITHUB_ENV
+           value1='This is the first value'
+           echo "::set-output name=first_value::$value1"
 
-      -  name: Set enviroment valriable 2
+      -  name: Set output value 2
+         id: secont
          shell: pwsh
          run: |
-           echo "VLA2='this is the value from the step 2'" | `
-             Out-FIle -FilePath $env:GITHUB_ENV -Encoding UTF-8 -Append
+           $value2 = 'This is the first value'
+           echo "::set-output name=secont_value::$value1"
 
-      -  name: Check env var
+      -  name: Check output values
          shell: bash
          run: |
-           echo "preset value: ${{ env.PRESET_VALUE}}"
-           echo "value1: $VAL1"
-           echo "value2: $VAL2"
-
+           echo "first value: ${{ stems.first.outputs.first_value}}
+           echo "second value: ${{ stems.second.outputs.second_value}}
