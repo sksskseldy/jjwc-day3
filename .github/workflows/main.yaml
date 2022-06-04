@@ -3,7 +3,7 @@ name : 'My First Githob Actions'
 on: push
 
 env:
-  WORKFLOW_LEVEL: "This evironment variable comes from the workflow level"
+  PRESET_VALUE: "This is the value preset"
 
 jobs:
 
@@ -11,32 +11,23 @@ jobs:
     name: 'First Job'
     runs-on: ubuntu-latest
 
-  env:
-    JOB_LEVEL_1: "his evironment variable comes from the JOB_LEVEL_1 level"
+    steps:
+      -  name: Set enviroment valriable 1
+         shell: bash
+         run: |
+           echo "VAL1='this is the value from the step 1'" >> $GITHUB_ENV
 
     steps:
-      - name: 'Say Hello World 1'
-        shell: bash
-        run: |
-          echo "Hello World from Step #1"
-      - name: 'Say Loren Ipsum 1'
-        shell: pwsh
-        run: |
-          echo "Lorem Ipsum from Step #2"
-          
+      -  name: Set enviroment valriable 2
+         shell: pwsh
+         run: |
+           echo "VLA2='this is the value from the step 2'" | `
+             Out-FIle -FilePath $GITHUB_ENV -Encoding UTF-8 -Append
 
-      - name: 'Check evironment variable 1'
-        shell: bash
-
-        env:
-          JOB_LEVEL_1: "this evironment variable comes from the step level"
-
-        run: |
-          echo "workflow level: $WORKFLOW_LEVEL"
-
-
-      - name: 'Check evironment variable 1'
-        shell: bash
-        run: |
-          echo "workflow level: $WORKFLOW_LEVEL"
+      -  name: Check env var
+         shell: bash
+         run: |
+           echo "preset value: ${{ env.PRESET_VALUE}}"
+           echo "value1: $VAL1"
+           echo "value2: $VAL2"
 
