@@ -2,10 +2,18 @@ name : 'My First Githob Actions'
 
 on: push
 
+env:
+  WORKFLOW_LEVEL: "This evironment variable comes from the workflow level"
+
 jobs:
+
   first_job:
     name: 'First Job'
     runs-on: ubuntu-latest
+
+  env:
+    JOB_LEVEL_1: "his evironment variable comes from the JOB_LEVEL_1 level"
+
     steps:
       - name: 'Say Hello World 1'
         shell: bash
@@ -15,3 +23,20 @@ jobs:
         shell: pwsh
         run: |
           echo "Lorem Ipsum from Step #2"
+          
+
+      - name: 'Check evironment variable 1'
+        shell: bash
+
+        env:
+          JOB_LEVEL_1: "this evironment variable comes from the step level"
+
+        run: |
+          echo "workflow level: $WORKFLOW_LEVEL"
+
+
+      - name: 'Check evironment variable 1'
+        shell: bash
+        run: |
+          echo "workflow level: $WORKFLOW_LEVEL"
+
