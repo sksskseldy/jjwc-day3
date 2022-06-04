@@ -21,7 +21,7 @@ jobs:
          shell: pwsh
          run: |
            echo "VLA2='this is the value from the step 2'" | `
-             Out-FIle -FilePath $GITHUB_ENV -Encoding UTF-8 -Append
+             Out-FIle -FilePath $env:GITHUB_ENV -Encoding UTF-8 -Append
 
       -  name: Check env var
          shell: bash
