@@ -1,0 +1,21 @@
+name: 'My First GitHub Actions'
+
+on: push
+
+jobs:
+  first_job:
+    name: 'First Job'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Mask output value
+        id: first
+        shell: bash
+        run: |
+          value1='This is the super secret value'
+          echo "::add-mask::$value1"
+          echo "::set-output name=first_value::$value1"
+      - name: Check output value
+        shell: bash
+        run: |
+          echo "value: ${{ steps.first.outputs.first_value }}"
